@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La Colline des Lutins — Ferme découverte dans la vallée de la Blanche</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,900&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --moss:#2f4230;        /* deep forest */
+    --moss-soft:#4a5f45;
+    --fern:#7c9a6a;        /* mid green */
+    --bark:#5a4632;        /* warm brown */
+    --honey:#e8a54b;       /* accent — warm amber, NOT terracotta */
+    --berry:#b5483a;       /* secondary accent for playful bits */
+    --paper:#f6f1e4;       /* warm paper, but greener/creamier than the AI-cliché cream */
+    --paper-deep:#ece3cd;
+    --ink:#20281c;
+    --radius:22px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:"Bricolage Grotesque",system-ui,sans-serif;
+    background:var(--paper);
+    color:var(--ink);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.display{font-family:"Fraunces",Georgia,serif;line-height:1.05;}
+  img{max-width:100%;display:block}
+  a{color:inherit}
+
+  .wrap{max-width:1160px;margin:0 auto;padding:0 24px}
+
+  /* ---------- NAV ---------- */
+  header.nav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(251,250,246,.9);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid rgba(47,66,48,.12);
+  }
+  .nav-in{display:flex;align-items:center;justify-content:space-between;height:74px}
+  .brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+  .logo-img{height:56px;width:auto;display:block}
+  @media(max-width:560px){.logo-img{height:46px}}
+  .brand .mark{width:42px;height:42px;border-radius:50%;background:radial-gradient(circle at 35% 30%,var(--fern),var(--moss));display:grid;place-items:center;color:var(--honey);font-family:"Fraunces";font-weight:900;font-size:1rem;letter-spacing:.02em;flex-shrink:0}
+  .brand-text{display:flex;flex-direction:column;font-family:"Fraunces";font-weight:900;font-size:1.2rem;line-height:1;color:var(--moss)}
+  .brand-sub{font-weight:500;font-size:.82rem;font-style:italic;color:var(--honey);margin-top:2px}
+  /* When you have the real logo, swap the two spans above for: <img src="LOGO_URL" alt="La Colline des Lutins" style="height:48px"> */
+  .nav-links{display:flex;gap:30px;align-items:center}
+  .nav-links a{text-decoration:none;font-weight:500;font-size:.97rem;color:var(--moss-soft);transition:color .2s}
+  .nav-links a:hover{color:var(--honey)}
+  .nav-cta{background:var(--moss);color:var(--paper)!important;padding:11px 20px;border-radius:100px;font-weight:600!important}
+  .burger{display:none;background:none;border:none;font-size:1.6rem;color:var(--moss);cursor:pointer}
+
+  /* ---------- HERO ---------- */
+  .hero{position:relative;overflow:hidden;background:var(--moss)}
+  .hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.55}
+  .hero-in{position:relative;z-index:2;padding:96px 24px 120px;max-width:1160px;margin:0 auto;color:var(--paper)}
+  .kicker{display:inline-flex;align-items:center;gap:8px;background:rgba(232,165,75,.16);border:1px solid rgba(232,165,75,.5);color:#f4d9a8;padding:7px 15px;border-radius:100px;font-size:.85rem;font-weight:500;margin-bottom:26px}
+  .hero h1{font-size:clamp(2.7rem,7vw,5.3rem);font-weight:900;letter-spacing:-.01em;margin-bottom:22px}
+  .hero h1 em{font-style:italic;color:var(--honey);font-weight:600}
+  .hero p{font-size:clamp(1.05rem,2vw,1.3rem);max-width:560px;color:#e9e4d3;margin-bottom:36px}
+  .hero-actions{display:flex;gap:14px;flex-wrap:wrap}
+  .btn{display:inline-flex;align-items:center;gap:9px;padding:15px 28px;border-radius:100px;font-weight:600;font-size:1.02rem;text-decoration:none;cursor:pointer;border:none;transition:transform .18s,box-shadow .18s}
+  .btn-honey{background:var(--honey);color:var(--moss)}
+  .btn-honey:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(232,165,75,.4)}
+  .btn-ghost{background:rgba(246,241,228,.12);color:var(--paper);border:1.5px solid rgba(246,241,228,.4)}
+  .btn-ghost:hover{background:rgba(246,241,228,.2)}
+
+  /* price strip */
+  .price-strip{position:relative;z-index:3;margin:-56px auto 0;max-width:1000px;display:grid;grid-template-columns:repeat(3,1fr);gap:0;background:var(--paper);border-radius:var(--radius);box-shadow:0 20px 50px rgba(32,40,28,.22);overflow:hidden}
+  .price-cell{padding:26px 24px;text-align:center;border-right:1px solid var(--paper-deep)}
+  .price-cell:last-child{border-right:none}
+  .price-cell .big{font-family:"Fraunces";font-weight:900;font-size:2.1rem;color:var(--moss);line-height:1}
+  .price-cell .lbl{font-size:.9rem;color:var(--moss-soft);margin-top:7px}
+
+  /* ---------- SECTIONS ---------- */
+  section{padding:88px 0}
+  .eyebrow{color:var(--honey);font-weight:600;font-size:1rem;margin-bottom:12px;font-family:"Fraunces";font-style:italic}
+  .sec-title{font-size:clamp(2rem,4.5vw,3.1rem);font-weight:900;color:var(--moss);letter-spacing:-.01em;margin-bottom:16px;max-width:16ch}
+  .lead{font-size:1.12rem;color:var(--moss-soft);max-width:58ch}
+
+  /* included activities — asymmetric, storybook list */
+  .included{background:var(--paper-deep)}
+  .inc-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:56px;align-items:center;margin-top:48px}
+  .inc-photo{border-radius:var(--radius);overflow:hidden;box-shadow:0 16px 40px rgba(32,40,28,.2);aspect-ratio:4/5;background:var(--fern)}
+  .inc-photo img{width:100%;height:100%;object-fit:cover}
+  .inc-list{list-style:none;columns:2;column-gap:34px}
+  .inc-list li{break-inside:avoid;padding:11px 0 11px 30px;position:relative;font-weight:500;color:var(--ink);border-bottom:1px dashed rgba(47,66,48,.22)}
+  .inc-list li::before{content:"🌿";position:absolute;left:0;top:10px;font-size:1rem}
+
+  /* options — playful cards, varied not identical */
+  .options{background:var(--moss);color:var(--paper)}
+  .options .sec-title{color:var(--paper)}
+  .options .lead{color:#cfd6c4}
+  .opt-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:22px;margin-top:50px}
+  .opt{background:var(--moss-soft);border-radius:var(--radius);overflow:hidden;position:relative;transition:transform .2s}
+  .opt:hover{transform:rotate(-1deg) scale(1.02)}
+  .opt:nth-child(even):hover{transform:rotate(1deg) scale(1.02)}
+  .opt-img{aspect-ratio:1;background:var(--fern);overflow:hidden}
+  .opt-img img{width:100%;height:100%;object-fit:cover}
+  .opt-body{padding:20px 22px}
+  .opt-body h3{font-size:1.3rem;font-weight:600;margin-bottom:8px;color:var(--honey)}
+  .opt-body p{font-size:.94rem;color:#dbe0d1}
+  .opt .tag{position:absolute;top:14px;right:14px;background:var(--berry);color:#fff;font-size:.78rem;font-weight:600;padding:5px 12px;border-radius:100px;font-family:"Bricolage Grotesque"}
+
+  /* discover trio */
+  .trio{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:50px}
+  .disc{border-radius:var(--radius);overflow:hidden;background:var(--paper-deep);box-shadow:0 10px 30px rgba(32,40,28,.12)}
+  .disc-img{aspect-ratio:3/2;overflow:hidden;background:var(--fern)}
+  .disc-img img{width:100%;height:100%;object-fit:cover}
+  .disc-body{padding:24px}
+  .disc-body h3{font-size:1.45rem;color:var(--moss);margin-bottom:10px}
+  .disc-body p{font-size:.97rem;color:var(--moss-soft);margin-bottom:16px}
+  .disc-body a{color:var(--berry);font-weight:600;text-decoration:none}
+  .disc-body a:hover{text-decoration:underline}
+
+  /* hours — the thing parents actually need, given real prominence */
+  .hours{background:var(--bark);color:var(--paper)}
+  .hours-in{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+  .hours .sec-title{color:var(--paper)}
+  .hours .eyebrow{color:var(--honey)}
+  .h-row{display:flex;justify-content:space-between;gap:20px;padding:16px 0;border-bottom:1px solid rgba(246,241,228,.2)}
+  .h-row .when{font-weight:600;font-family:"Fraunces";font-size:1.08rem}
+  .h-row .time{color:#e8ddc7;text-align:right;font-size:.98rem}
+  .hours-note{margin-top:20px;font-size:.88rem;color:#d8cbb2;font-style:italic}
+  .contact-card{background:rgba(246,241,228,.08);border:1px solid rgba(246,241,228,.2);border-radius:var(--radius);padding:30px}
+  .contact-card h3{font-size:1.5rem;color:var(--honey);margin-bottom:18px}
+  .contact-card .ci{display:flex;gap:12px;align-items:flex-start;margin-bottom:15px;font-size:1rem}
+  .contact-card .ci span:first-child{font-size:1.2rem}
+
+  /* footer */
+  footer{background:var(--moss);color:#c3ccb8;padding:60px 0 34px}
+  .foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px;margin-bottom:40px}
+  .foot-brand{font-family:"Fraunces";font-weight:900;font-size:1.5rem;color:var(--paper);margin-bottom:14px}
+  footer h4{color:var(--honey);font-family:"Fraunces";font-weight:600;margin-bottom:16px;font-size:1.1rem}
+  footer ul{list-style:none}
+  footer li{margin-bottom:10px}
+  footer a{text-decoration:none;color:#c3ccb8;transition:color .2s}
+  footer a:hover{color:var(--honey)}
+  .foot-bottom{border-top:1px solid rgba(246,241,228,.15);padding-top:24px;font-size:.85rem;color:#8a9680;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media(max-width:860px){
+    .nav-links{position:fixed;inset:74px 0 auto 0;background:var(--paper);flex-direction:column;padding:24px;gap:18px;border-bottom:1px solid var(--paper-deep);transform:translateY(-130%);transition:transform .3s;box-shadow:0 20px 40px rgba(0,0,0,.1)}
+    .nav-links.open{transform:translateY(0)}
+    .burger{display:block}
+    .price-strip{grid-template-columns:1fr;margin-top:-40px}
+    .price-cell{border-right:none;border-bottom:1px solid var(--paper-deep)}
+    .price-cell:last-child{border-bottom:none}
+    .inc-grid,.hours-in{grid-template-columns:1fr;gap:34px}
+    .inc-list{columns:1}
+    .trio{grid-template-columns:1fr}
+    .foot-grid{grid-template-columns:1fr;gap:28px}
+  }
+  @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto}}
+
+  /* atmosphere band */
+  .atmosphere{overflow:hidden}
+  .atmosphere::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(32,40,28,.62) 0%,rgba(32,40,28,.15) 55%,transparent 100%)}
+  .atmo-quote{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;justify-content:center;max-width:1160px;margin:0 auto;padding:0 40px;color:var(--paper)}
+  .atmo-quote p{font-size:clamp(1.6rem,4vw,2.9rem);font-weight:500;font-style:italic;line-height:1.15;text-shadow:0 2px 18px rgba(32,40,28,.5)}
+  .atmo-quote span{margin-top:16px;font-size:.95rem;color:#e9e4d3;letter-spacing:.02em}
+  @media(max-width:560px){.atmo-quote{padding:0 24px}}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-in">
+    <a href="#" class="brand" id="brandLogo">
+      <!-- LOGO en-tête (PNG) : images/logo.png -->
+      <img src="images/logo.png" alt="La Colline des Lutins — parc animalier et nature en famille" class="logo-img">
+    </a>
+    <nav class="nav-links" id="menu">
+      <a href="#activites">Les activités</a>
+      <a href="#options">Options</a>
+      <a href="#decouvrir">À découvrir</a>
+      <a href="#horaires">Horaires &amp; accès</a>
+      <a href="#horaires" class="nav-cta">Réserver</a>
+    </nav>
+    <button class="burger" onclick="document.getElementById('menu').classList.toggle('open')" aria-label="Menu">☰</button>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <!-- PHOTO en-tête (paysage large) : images/hero.jpg -->
+      <img class="hero-img" src="images/hero.jpg" alt="La vallée de la Blanche et les sommets des Alpes-de-Haute-Provence">
+  <div class="hero-in">
+    <span class="kicker">✦ Vallée de la Blanche · Alpes-de-Haute-Provence</span>
+    <h1>Une journée à la ferme,<br><em>au cœur des Alpes</em></h1>
+    <p>Nourrissage des animaux, sentier pieds nus, tyrolienne et lapinothérapie. Un cadre naturel préservé pour se retrouver en famille, tout simplement.</p>
+    <div class="hero-actions">
+      <a href="#horaires" class="btn btn-honey">Préparer ma visite →</a>
+      <a href="#activites" class="btn btn-ghost">Voir les activités</a>
+    </div>
+  </div>
+</section>
+
+<!-- PRICE STRIP -->
+<div class="wrap">
+  <div class="price-strip">
+    <div class="price-cell"><div class="big">10€</div><div class="lbl">la journée par personne · 1 option offerte pour les + de 3 ans</div></div>
+    <div class="price-cell"><div class="big">Gratuit</div><div class="lbl">pour les enfants de moins de 3 ans</div></div>
+    <div class="price-cell"><div class="big">Avril → Oct.</div><div class="lbl">ouvert pendant la belle saison, selon calendrier</div></div>
+  </div>
+</div>
+
+<!-- INCLUDED -->
+<section class="included" id="activites">
+  <div class="wrap">
+    <p class="eyebrow">Compris dans l'entrée</p>
+    <h2 class="sec-title">Tout un après-midi d'aventures</h2>
+    <p class="lead">Une journée pleine d'émotion, à son rythme. Voici ce qui vous attend une fois passé le portail.</p>
+    <div class="inc-grid">
+      <div class="inc-photo"><!-- PHOTO section activités (portrait) : images/mushroom.jpg -->
+      <img src="images/mushroom.jpg" alt="Chèvre devant le champignon géant de la Colline des Lutins"></div>
+      <ul class="inc-list">
+        <li>Nourrissage des animaux</li>
+        <li>Sentier sensoriel pieds nus</li>
+        <li>Grand jeu : l'Attaque du train</li>
+        <li>Aire de jeux en bois</li>
+        <li>Ateliers manuels</li>
+        <li>Parc « Lapinothérapie »</li>
+        <li>Pelles à sable mécaniques</li>
+        <li>Manège à propulsion parentale</li>
+        <li>Tyrolienne</li>
+        <li>Vache pédagogique à traire</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- OPTIONS -->
+<section class="options" id="options">
+  <div class="wrap">
+    <p class="eyebrow" style="color:var(--honey)">Pour encore + de sensations</p>
+    <h2 class="sec-title">Cinq options à 3€ chacune</h2>
+    <p class="lead">Une activité offerte pour chaque enfant de plus de 3 ans. À vous de choisir vos préférées.</p>
+    <div class="opt-grid">
+      <div class="opt"><span class="tag">3€</span><div class="opt-img"><img src="https://lacollinedeslutins.fr/wp-content/uploads/2023/02/263862166_434936684785645_5158771155128884571_n.jpg" alt="Balade en poney"></div><div class="opt-body"><h3>Balade en poney</h3><p>Un tour tenu par les parents, trois tailles de poneys pour petits et grands.</p></div></div>
+      <div class="opt"><span class="tag">3€</span><div class="opt-img"><img src="https://lacollinedeslutins.fr/wp-content/uploads/elementor/thumbs/1000015503-qzkmy0f2qwif7xzj4m7g0sj7leufk87llrws0xa3s0.jpg" alt="Boîte mystère"></div><div class="opt-body"><h3>La boîte mystère</h3><p>Devine les objets cachés au toucher, trouve la phrase, gagne ta récompense.</p></div></div>
+      <div class="opt"><span class="tag">3€</span><div class="opt-img"><img src="https://lacollinedeslutins.fr/wp-content/uploads/elementor/thumbs/chasse-tresor-2-q2ktzzs3p85i9jopzl07i0e5cq0ml9o0wt10xm4vj4.jpg" alt="Chasse au trésor"></div><div class="opt-body"><h3>Chasse au trésor</h3><p>Retrouve les lettres cachées dans le parc grâce aux photos et gagne un cadeau.</p></div></div>
+      <div class="opt"><span class="tag">3€</span><div class="opt-img"><img src="https://lacollinedeslutins.fr/wp-content/uploads/elementor/thumbs/orpaillage-5-q2ku00pxw272tgbi04r2c22m5143fwrcjofffdcyvo.jpg" alt="Orpaillage"></div><div class="opt-body"><h3>Orpaillage</h3><p>Tamise le sable, remplis ta fiole de pépites et fabrique ton bijou.</p></div></div>
+      <div class="opt"><span class="tag">3€</span><div class="opt-img"><img src="https://lacollinedeslutins.fr/wp-content/uploads/2023/02/aiguille-840x1024.jpg" alt="Aiguille dans une botte de foin"></div><div class="opt-body"><h3>L'aiguille dans le foin</h3><p>Détecteur de métaux en main, retrouve l'aiguille et remporte ta médaille.</p></div></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ATMOSPHERE BAND -->
+<section class="atmosphere" style="padding:0;position:relative">
+  <!-- PHOTO bandeau ambiance (paysage large) : images/forest.jpg -->
+      <img src="images/forest.jpg" alt="Sous-bois de pins et sommets des Alpes, un hamac à l'ombre" style="width:100%;height:clamp(340px,52vh,560px);object-fit:cover;display:block">
+  <div class="atmo-quote">
+    <p class="display">« Rêve la vie en couleurs,<br>c'est le secret du bonheur »</p>
+    <span>— peint sur la grange de la ferme</span>
+  </div>
+</section>
+
+<!-- DISCOVER -->
+<section id="decouvrir">
+  <div class="wrap">
+    <p class="eyebrow">Le parc, c'est aussi…</p>
+    <h2 class="sec-title">Bien plus qu'une visite</h2>
+    <div class="trio">
+      <div class="disc"><div class="disc-img"><img src="https://lacollinedeslutins.fr/wp-content/uploads/elementor/thumbs/263715700_332578564980142_5411053368109180724_n-q2jf7iaj8av6y6lckf87hc25ngrzsld0q2brqhvki4.jpg" alt="Le S'Elfe gourmand"></div><div class="disc-body"><h3>Où manger ?</h3><p>Une petite faim ? Restaurez-vous au S'Elfe Gourmand ou sur l'aire de pique-nique.</p><a href="#">En savoir plus →</a></div></div>
+      <div class="disc"><div class="disc-img"><!-- PHOTO carte parrainer (portrait) : images/goat.jpg -->
+      <img src="images/goat.jpg" alt="Chevreau à la porte de la grange" style="object-position:center 38%"></div><div class="disc-body"><h3>Parrainer un animal</h3><p>Envie de soutenir la ferme ou d'aider à améliorer le parc ? C'est possible via Tipeee.</p><a href="https://fr.tipeee.com/la-colline-des-lutins">En savoir plus →</a></div></div>
+      <div class="disc"><div class="disc-img"><img src="https://lacollinedeslutins.fr/wp-content/uploads/elementor/thumbs/251655020_4585219354878931_4960040268192750077_n-q2jf7j8df4wh9sjzexmu1ttm8und0agr26z97ru6bw.jpg" alt="La ferme itinérante"></div><div class="disc-body"><h3>La ferme itinérante</h3><p>Vous ne pouvez pas venir ? Nous nous déplaçons avec nos animaux et nos animations.</p><a href="#">En savoir plus →</a></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- HOURS + CONTACT -->
+<section class="hours" id="horaires">
+  <div class="wrap hours-in">
+    <div>
+      <p class="eyebrow">Horaires</p>
+      <h2 class="sec-title">Ouvert d'avril à octobre</h2>
+      <div class="h-row"><span class="when">Vacances de Pâques &amp; Toussaint</span><span class="time">Tous les jours<br>11h – 17h</span></div>
+      <div class="h-row"><span class="when">Grandes vacances d'été</span><span class="time">Tous les jours sauf samedi<br>10h – 18h</span></div>
+      <div class="h-row"><span class="when">Mai, juin &amp; septembre</span><span class="time">Mer. sam. dim. sur réservation<br>11h – 17h</span></div>
+      <p class="hours-note">Accueil de groupes sur réservation : situations de handicap, EHPAD, centres de loisirs, colonies, associations, écoles. Horaires sous réserve de modifications (intempéries, ferme itinérante, groupes).</p>
+    </div>
+    <div class="contact-card">
+      <h3>Nous trouver</h3>
+      <div class="ci"><span>📍</span><span>Lieu-dit Les Souquets<br>04140 Le Vernet</span></div>
+      <div class="ci"><span>📞</span><span>+33 6 82 58 32 08</span></div>
+      <div class="ci"><span>✉️</span><span>contact@lacollinedeslutins.fr</span></div>
+      <a href="#" class="btn btn-honey" style="margin-top:12px;width:100%;justify-content:center">Réserver ma visite</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand">🍄 La Colline des Lutins</div>
+        <p style="max-width:34ch">Ferme pédagogique, ludique et familiale au cœur de la vallée de la Blanche. Élevage et vente directe de petits animaux et d'œufs.</p>
+      </div>
+      <div>
+        <h4>Le parc</h4>
+        <ul>
+          <li><a href="#activites">Les activités</a></li>
+          <li><a href="#options">Options</a></li>
+          <li><a href="#">L'élevage</a></li>
+          <li><a href="#decouvrir">La ferme itinérante</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Infos pratiques</h4>
+        <ul>
+          <li><a href="#horaires">Horaires</a></li>
+          <li><a href="#horaires">Accès &amp; contact</a></li>
+          <li><a href="#">Se restaurer</a></li>
+          <li><a href="https://fr.tipeee.com/la-colline-des-lutins">Parrainer un animal</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 La Colline des Lutins · Le Vernet</span>
+      <span>Facebook · Instagram · Tripadvisor</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
